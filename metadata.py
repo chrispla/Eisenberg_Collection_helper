@@ -1,30 +1,24 @@
 import pandas as pd
-import os
+from pathlib import Path
+import argparse
 
-# Path of .csv file
-input_path = input("Enter path of .csv metadata file: ")
-output_dir = input("Enter directory for output (leave blank for current directory): ")
+# Argument parser
+parser = argparse.ArgumentParser(description="input and output path")
+parser.add_argument("--input_path", required=True) #path of .csv metadata file
+parser.add_argument("--output_dir", default=".") #directory of output
+args = parser.parse_args()
 
-# Exit if path doesn't exist
-if not os.path.exists(input_path):
-    print("Invalid input path, exiting...")
-    exit()
+input_path = args.input_path
+output_dir = args.output_dir
 
-# Check if valid output dir
-if not output_dir: #if empty string
-    output_path = os.path.join('.', 'metadata.h5')
-elif os.path.isdir(output_dir): #existing directory
-    output_path = os.path.join(output_dir, 'metadata.h5')
-else: #non existant directory
-    print("Invalid output directory, exiting...")
-    exit()
+# Compose output path and check validity
+if Path(output_dir).is_dir():
+    output_path = Path(output_dir) / 'metadata.h5'
+else:
+    raise FileNotFoundError("Invalid output directory: %s, exiting...")
 
 # Read .csv
-try:
-    metadata = pd.read_csv(input_path, sep=';')
-except:
-    print("Incorrect format, exiting...")
-    exit()
+metadata = pd.read_csv(input_path, sep=';')
 
 # Output to HDF5
 metadata.to_hdf(output_path, key='df', format='table')
