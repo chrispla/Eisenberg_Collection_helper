@@ -86,9 +86,6 @@ for i, row in metadata.iterrows():
     # Progress
     sys.stdout.write("\rComputed features for %i audio files." % file_count)
     sys.stdout.flush()
-
-    if file_count >=20:
-        break
 print('\n' + "Found " + str(file_count-len(audio_paths)) + " unmatched audio files.")
 
 # Save to HDF5
