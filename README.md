@@ -11,6 +11,7 @@ Helper scripts for audio and metadata management for the Eisenberg Collection
    ```python
    python3 metadata.py --input_path=/Users/MaSC/Eisenberg_Collection/metadata.csv --ouput_path=/Users/MaSC/Eisenberg_Collection
    ```
+   
 * `features.py`
 
     **Description** : read metadata and find the associated audio files to compute features and store them in an .h5 file as a python dictionary <br>
