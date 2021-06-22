@@ -15,7 +15,7 @@ output_dir = args.output_dir
 if Path(output_dir).is_dir():
     output_path = Path(output_dir) / 'metadata.h5'
 else:
-    raise FileNotFoundError("Invalid output directory: %s, exiting...")
+    raise FileNotFoundError("Invalid output directory: %s, exiting...", output_dir)
 
 # Read .csv
 metadata = pd.read_csv(input_path, sep=';')
